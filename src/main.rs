@@ -2,7 +2,8 @@ mod app;
 mod components;
 mod pages;
 mod helpers;
-mod structs;
+mod routes;
+mod switches;
 
 use app::App;
 

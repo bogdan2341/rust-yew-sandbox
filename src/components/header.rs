@@ -1,62 +1,31 @@
 use yew::prelude::*;
 use super::header_item::HeaderItem;
-use crate::structs::page::*;
+use crate::routes::MainRoute;
 
-struct HeaderItemStr {
+struct HeaderItemInfo {
     label: String,
-    page_type: Page,
-    href: String,
+    route: MainRoute,
 }
 
 
-fn get_menu_items() -> Vec<HeaderItemStr> {
+fn get_menu_items() -> Vec<HeaderItemInfo> {
     vec![
-        HeaderItemStr {
-            label: "Super Home".to_string(),
-            page_type: Page::Home,
-            href: "#".to_string(),
-        },
-        HeaderItemStr {
-            label: "Features".to_string(),
-            page_type: Page::Features,
-            href: "#".to_string(),
-        },
-        HeaderItemStr {
-            label: "Pricing".to_string(),
-            page_type: Page::Pricing,
-            href: "#".to_string(),
-        },
-        HeaderItemStr {
-            label: "FAQs".to_string(),
-            page_type: Page::FAQs,
-            href: "#".to_string(),
-        },
-        HeaderItemStr {
-            label: "About".to_string(),
-            page_type: Page::About,
-            href: "#".to_string(),
-        },
+        HeaderItemInfo {label: "Super Home".to_string(), route: MainRoute::Home,},
+        HeaderItemInfo {label: "Features".to_string(), route: MainRoute::Features,},
+        HeaderItemInfo {label: "Pricing".to_string(), route: MainRoute::Pricing,},
+        HeaderItemInfo {label: "FAQs".to_string(), route: MainRoute::FAQs,},
+        HeaderItemInfo {label: "About".to_string(), route: MainRoute::About,},
     ]
 }
 
-
-#[derive(Clone, Properties, PartialEq)]
-pub struct HeaderProps {
-    pub on_menu_click: Callback<Page>,
-    pub active_page: Page,
-}
-
 #[function_component(Header)]
-pub fn header(HeaderProps {on_menu_click, active_page}: &HeaderProps) -> Html {
+pub fn header() -> Html {
 
     let header_items_node = get_menu_items().iter().map(|item| {
         html! {
             <HeaderItem 
                 label={item.label.to_owned()}
-                href={item.href.to_owned()}
-                active_page={*active_page}
-                on_click={on_menu_click.clone()} 
-                menu_type={item.page_type}
+                route={item.route.to_owned()}
             />
         }
     }).collect::<Html>();
