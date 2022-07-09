@@ -1,19 +1,10 @@
 use yew::prelude::*;
 use super::header_item::HeaderItem;
-
-
-#[derive(Debug, PartialEq, Clone, Eq, Copy)]
-pub enum Pages {
-    Home,
-    Features,
-    Pricing,
-    FAQs,
-    About,
-}
+use crate::structs::page::*;
 
 struct HeaderItemStr {
     label: String,
-    page_type: Pages,
+    page_type: Page,
     href: String,
 }
 
@@ -22,27 +13,27 @@ fn get_menu_items() -> Vec<HeaderItemStr> {
     vec![
         HeaderItemStr {
             label: "Super Home".to_string(),
-            page_type: Pages::Home,
+            page_type: Page::Home,
             href: "#".to_string(),
         },
         HeaderItemStr {
             label: "Features".to_string(),
-            page_type: Pages::Features,
+            page_type: Page::Features,
             href: "#".to_string(),
         },
         HeaderItemStr {
             label: "Pricing".to_string(),
-            page_type: Pages::Pricing,
+            page_type: Page::Pricing,
             href: "#".to_string(),
         },
         HeaderItemStr {
             label: "FAQs".to_string(),
-            page_type: Pages::FAQs,
+            page_type: Page::FAQs,
             href: "#".to_string(),
         },
         HeaderItemStr {
             label: "About".to_string(),
-            page_type: Pages::About,
+            page_type: Page::About,
             href: "#".to_string(),
         },
     ]
@@ -51,8 +42,8 @@ fn get_menu_items() -> Vec<HeaderItemStr> {
 
 #[derive(Clone, Properties, PartialEq)]
 pub struct HeaderProps {
-    pub on_menu_click: Callback<Pages>,
-    pub active_page: Pages,
+    pub on_menu_click: Callback<Page>,
+    pub active_page: Page,
 }
 
 #[function_component(Header)]

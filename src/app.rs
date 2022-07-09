@@ -1,45 +1,57 @@
 use yew::prelude::*;
-use web_sys::console;
 
-use crate::components::header::*;
+use crate::helpers::*;
+
+use crate::components::Header;
 
 use crate::pages::{
-    home::Home, 
-    pricing::Pricing, 
-    about::About, 
-    faq::Faq, 
-    features::Features
+    Home, 
+    Pricing, 
+    About, 
+    Faq, 
+    Features,
 };
 
+use crate::structs::Page;
+
+const PAGE_LS_KEY: &str = "active-page";
 
 #[function_component(App)]
 pub fn app () -> Html {
-    let active_page = use_state(|| Pages::Home);
+    let current_page_from_ls = LocalStorage::get(PAGE_LS_KEY);
+
+    let current_page = use_state(|| {
+        match current_page_from_ls {
+            Some(page) => Page::from_str(&page[..]),
+            None => Page::Home
+        }
+    });
 
     let on_click = {
-        let active_page = active_page.clone();
-        Callback::from(move |page: Pages| {
-            if *active_page != page {
-                active_page.set(page);
+        let current_page = current_page.clone();
+        Callback::from(move |page: Page| {
+            if *current_page != page {
+                LocalStorage::set("active-page", page.to_key());
+                current_page.set(page);
             }
         })
     };
 
-    console::log_1(&format!("{:?}", *active_page).into());
+    //console_log!("APP :: {:?}", *active_page);
 
     html! {
         <>
             <Header 
                 on_menu_click={on_click.clone()}
-                active_page={*active_page}
+                active_page={*current_page}
             />
             {
-                match *active_page {
-                    Pages::Home => html! {<Home/>},
-                    Pages::Features => html! {<Features/>},
-                    Pages::About => html! {<About/>},
-                    Pages::FAQs => html! {<Faq/>},
-                    Pages::Pricing => html! {<Pricing/>},
+                match *current_page {
+                    Page::Home => html! {<Home/>},
+                    Page::Features => html! {<Features/>},
+                    Page::About => html! {<About/>},
+                    Page::FAQs => html! {<Faq/>},
+                    Page::Pricing => html! {<Pricing/>},
                 }
             }
         </>

@@ -1,13 +1,13 @@
 use yew::prelude::*;
-use super::header::Pages;
+use crate::structs::page::*;
 
 #[derive(Clone, Properties, PartialEq)]
 pub struct MenuItemProps {
     pub href: String, 
     pub label: String,
-    pub menu_type: Pages,
-    pub active_page: Pages,
-    pub on_click: Callback<Pages>
+    pub menu_type: Page,
+    pub active_page: Page,
+    pub on_click: Callback<Page>
 }
 
 #[function_component(HeaderItem)]
