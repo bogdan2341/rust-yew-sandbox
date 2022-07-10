@@ -15,6 +15,7 @@ fn get_menu_items() -> Vec<HeaderItemInfo> {
         HeaderItemInfo {label: "Pricing".to_string(), route: MainRoute::Pricing,},
         HeaderItemInfo {label: "FAQs".to_string(), route: MainRoute::FAQs,},
         HeaderItemInfo {label: "About".to_string(), route: MainRoute::About,},
+        HeaderItemInfo {label: "Settings".to_string(), route: MainRoute::Settings,},
     ]
 }
 
