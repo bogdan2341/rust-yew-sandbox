@@ -10,10 +10,10 @@ pub struct FeatureProps {
 
 #[function_component(Feature)]
 pub fn feature(props: &FeatureProps) -> Html {
-    let feature = use_state(|| Task::empty());
+    let feature = use_state(Task::empty);
 
     {
-        let feature_id = props.id.clone();
+        let feature_id = props.id;
         let feature = feature.clone();
         use_effect_with_deps(
             move |_| {

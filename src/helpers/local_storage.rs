@@ -1,11 +1,15 @@
 use crate::console_log;
-pub struct LocalStorage {}
+
+#[allow(dead_code)]
+pub struct LocalStorage;
 
 impl LocalStorage {
+    #[allow(dead_code)]
     fn get_local_storage() -> web_sys::Storage {
         web_sys::window().unwrap().local_storage().unwrap().unwrap()
     }
 
+    #[allow(dead_code)]
     pub fn set(key: &str, value: &str) {
         let ls = Self::get_local_storage();
         let result = ls.set(key, value);
@@ -15,6 +19,7 @@ impl LocalStorage {
         }
     }
 
+    #[allow(dead_code)]
     pub fn get(key: &str) -> Option<String> {
         let ls = Self::get_local_storage();
         let result = ls.get(key);

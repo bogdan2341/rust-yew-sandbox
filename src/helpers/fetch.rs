@@ -1,6 +1,7 @@
 use gloo::net::http::Request;
 use serde::{Deserialize, Serialize};
 
+#[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Task {
     pub id: u32,

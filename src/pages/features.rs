@@ -25,7 +25,7 @@ fn features_item(
     let navigator = use_navigator().unwrap();
 
     let onclick = {
-        let id = id.clone();
+        let id = *id;
         Callback::from(move |_| navigator.push(&FeaturesRoutes::Feature { id }))
     };
 
@@ -72,7 +72,7 @@ pub fn features() -> Html {
                     <FeaturesItem
                         title={feature.title.clone()}
                         trimed_body={feature.get_trimed_body(70)}
-                        id={feature.id.clone()}
+                        id={feature.id}
                     />
 
                 }).collect::<Html>()
