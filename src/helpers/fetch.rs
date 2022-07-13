@@ -10,7 +10,7 @@ pub struct Task {
 }
 
 impl Task {
-    pub fn get_trimed_body(&self, max_chars: usize) -> String{
+    pub fn get_trimed_body(&self, max_chars: usize) -> String {
         let body = &self.body.as_str();
         match body.char_indices().nth(max_chars) {
             None => body.to_string(),
@@ -19,25 +19,25 @@ impl Task {
     }
 
     pub fn empty() -> Self {
-        Task { 
-            id: 0, 
-            title: "".to_string(), 
-            body: "".to_string(), 
-            userId: 0
+        Task {
+            id: 0,
+            title: "".to_string(),
+            body: "".to_string(),
+            userId: 0,
         }
     }
 }
 
 pub type FetchError = gloo::net::Error;
 //"https://jsonplaceholder.typicode.com/posts"
-pub async fn fetch<T> (url: String) -> Result<T, FetchError>
+pub async fn fetch<T>(url: String) -> Result<T, FetchError>
 where
-    T: for<'de> Deserialize<'de>
+    T: for<'de> Deserialize<'de>,
 {
     Request::get(url.as_str())
         .send()
         .await
         .unwrap()
         .json::<T>()
-        .await  
+        .await
 }

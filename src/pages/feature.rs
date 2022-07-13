@@ -1,11 +1,11 @@
-use yew::prelude::*;
-use wasm_bindgen_futures::spawn_local;
-use crate::helpers::fetch::{Task, fetch};
 use crate::console_log;
+use crate::helpers::fetch::{fetch, Task};
+use wasm_bindgen_futures::spawn_local;
+use yew::prelude::*;
 
 #[derive(Clone, Properties, PartialEq)]
 pub struct FeatureProps {
-    pub id: u32
+    pub id: u32,
 }
 
 #[function_component(Feature)]
@@ -15,18 +15,21 @@ pub fn feature(props: &FeatureProps) -> Html {
     {
         let feature_id = props.id.clone();
         let feature = feature.clone();
-        use_effect_with_deps(move |_| {
-            spawn_local(async move {
-                let main_url = "https://jsonplaceholder.typicode.com/posts".to_string();
-                let url = format!("{}/{}", main_url, feature_id);
-                let res = fetch::<Task>(url).await;
-                match res {
-                    Ok(res) => feature.set(res),
-                    Err(res) => console_log!("{:?}",res),
-                }
-            });
-            || {}
-        }, ());
+        use_effect_with_deps(
+            move |_| {
+                spawn_local(async move {
+                    let main_url = "https://jsonplaceholder.typicode.com/posts".to_string();
+                    let url = format!("{}/{}", main_url, feature_id);
+                    let res = fetch::<Task>(url).await;
+                    match res {
+                        Ok(res) => feature.set(res),
+                        Err(res) => console_log!("{:?}", res),
+                    }
+                });
+                || {}
+            },
+            (),
+        );
     }
 
     html! {

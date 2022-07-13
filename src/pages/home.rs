@@ -25,7 +25,7 @@ pub fn home() -> Html {
                 </div>
                 <div class="checkbox mb-3">
                     <label>
-                    <input type="checkbox" value="remember-me"/> 
+                    <input type="checkbox" value="remember-me"/>
                         {"Remember me"}
                     </label>
                 </div>
